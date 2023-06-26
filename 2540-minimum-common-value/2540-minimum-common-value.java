@@ -1,8 +1,8 @@
 class Solution {
     public int getCommon(int[] nums1, int[] nums2) {
         for(int num: nums1){
-            boolean check = binarySearch(nums2,num);
-            if(check){
+            int check = binarySearch(nums2,num);
+            if(check != -1){
                 return num;
             }
         }
@@ -10,7 +10,7 @@ class Solution {
         return -1;
     }
     
-    boolean binarySearch(int[] arr, int target){
+    int binarySearch(int[] arr, int target){
         int start = 0;
         int end =  arr.length-1;
         
@@ -18,7 +18,7 @@ class Solution {
             int mid = start + (end - start)/2;
             
             if(arr[mid] == target){
-                return true;
+                return mid;
             }
             
             if(arr[mid]>target){
@@ -28,6 +28,6 @@ class Solution {
             }
         }
         
-        return false;
+        return -1;
     }
 }
