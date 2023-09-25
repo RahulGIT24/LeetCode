@@ -11,15 +11,14 @@ public:
             if(nums[i] == 2) blue++;
         }
         
-        for(int i = 0; i<red; i++){
-            nums[i] = 0;
-        }
-        for(int i = red; i<red+white; i++){
-            nums[i] = 1;
-        }
-        
-        for(int i = red+white; i<nums.size(); i++){
-            nums[i] = 2;
+        for(int i = 0; i<nums.size(); i++){
+            if(i<red){
+                nums[i] = 0;
+            }else if(i<red+white){
+                nums[i] = 1;
+            }else{
+                nums[i] = 2;
+            }
         }
     }
 };
