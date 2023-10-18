@@ -6,6 +6,12 @@ public:
         int high = n-1;
         while(low<=high){
             int mid = (low+high)/2;
+            
+            if(arr[low]<=arr[high]){
+                ans = min(ans,arr[low]);
+                break;
+            }
+            
             // left sorted
             if(arr[mid]>=arr[low]){
                 ans = min(ans,arr[low]);
