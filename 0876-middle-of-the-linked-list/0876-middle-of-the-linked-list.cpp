@@ -21,18 +21,10 @@ public:
         
         int mid = (c/2);
         mid++;
-        if(mid %2!=0){
-            c = 1;
-            while(c!=mid){
-                new_node = new_node->next;
-                c++;
-            }
-        }else{
-            c = 1;
-            while(c!=mid){
-                new_node = new_node->next;
-                c++;
-            }
+        c = 1;
+        while(c!=mid){
+            new_node = new_node->next;
+              c++;
         }
         return new_node;
     }
