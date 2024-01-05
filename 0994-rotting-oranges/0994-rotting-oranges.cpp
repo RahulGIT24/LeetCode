@@ -1,35 +1,50 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        if(grid.empty()) return 0;
-        int m = grid.size(), n = grid[0].size(), days = 0, tot = 0, cnt = 0;
-        queue<pair<int, int>> rotten;
-        for(int i = 0; i < m; ++i){
-            for(int j = 0; j < n; ++j){
-                if(grid[i][j] != 0) tot++;
-                if(grid[i][j] == 2) rotten.push({i, j});
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        queue<pair<pair<int,int>,int>> q;
+        int vis[n][m];
+        int cFresh = 0;
+        
+        for(int i = 0; i<n; i++){
+            for(int j =0; j<m; j++){
+                if(grid[i][j] == 2){
+                    q.push({{i,j},0});
+                    vis[i][j] = 2;
+                }else{
+                    vis[i][j] = 0;
+                }
+                
+                if(grid[i][j] == 1) cFresh++;
             }
         }
         
-        int dx[4] = {0, 0, 1, -1};
-        int dy[4] = {1, -1, 0, 0};
-        
-        while(!rotten.empty()){
-            int k = rotten.size();
-            cnt += k; 
-            while(k--){
-                int x = rotten.front().first, y = rotten.front().second;
-                rotten.pop();
-                for(int i = 0; i < 4; ++i){
-                    int nx = x + dx[i], ny = y + dy[i];
-                    if(nx < 0 || ny < 0 || nx >= m || ny >= n || grid[nx][ny] != 1) continue;
-                    grid[nx][ny] = 2;
-                    rotten.push({nx, ny});
+        int tm = 0;
+        int dRow[4] = {-1,0,+1,0};
+        int dCol[4] = {0,+1,0,-1};
+        int count = 0;
+        while(!q.empty() && cFresh > 0){
+            int row = q.front().first.first;
+            int col = q.front().first.second;
+            int t = q.front().second;
+            tm = max(tm,t);
+            q.pop();
+            
+            for(int i = 0; i<4; i++){
+                int nRow = row + dRow[i];
+                int nCol = col + dCol[i];
+                if(nRow >= 0 && nRow<n && nCol >= 0 && nCol<m && vis[nRow][nCol] == 0 && grid[nRow][nCol] == 1){
+                    q.push({{nRow,nCol},t+1});
+                    vis[nRow][nCol] = 2;
+                    count ++;
                 }
             }
-            if(!rotten.empty()) days++;
         }
         
-        return tot == cnt ? days : -1;
+        if(cFresh != count) return -1;
+        
+        return tm;
     }
 };
