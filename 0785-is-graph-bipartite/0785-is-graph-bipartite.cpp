@@ -1,6 +1,6 @@
 class Solution {
 private:
-    bool check(int start, vector<vector<int>> &adj, int V, vector<int> &color){
+    bool check(int start, vector<int> adj[], int V, vector<int> &color){
         queue<int> q;
         q.push(start);
         color[start] = 0;
@@ -23,7 +23,7 @@ public:
         int V  = graph.size();
 
         // convert matrix to adjacency list
-        std::vector<std::vector<int>> adj(V);
+        vector<int> adj[V];
         for (int i = 0; i < V; ++i) {
         for (int j : graph[i]) {
             adj[i].push_back(j);
